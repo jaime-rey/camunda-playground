@@ -1,0 +1,39 @@
+server:
+  port: 8095
+
+spring:
+  application:
+    name: camunda-playground
+  datasource:
+    url: jdbc:h2:mem:camunda-playground-db;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ''
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+camunda:
+  bpm:
+    admin-user:
+      id: admin
+      password: admin
+      firstName: Camunda
+      lastName: Admin
+    filter:
+      create: "All tasks"
+    database:
+      schema-update: true
+    deployment-resource-pattern:
+      - "classpath*:processes/*.bpmn"
+      - "classpath*:processes/*.dmn"
+    generic-properties:
+      properties:
+        history-cleanup-batch-window-start-time: "00:01"
+        history-time-to-live: P30D
+        enforce-history-time-to-live: false
+
+logging:
+  level:
+    org.camunda: INFO

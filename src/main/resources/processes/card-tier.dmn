@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1eogka5" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.50.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.24.0">
+  <decision id="card-tier" name="Card Tier Assignment">
+    <variable id="Variable_1" name="Card Tier Assignment" typeRef="Any" />
+    <decisionTable id="DecisionTable_0u4ps60" hitPolicy="FIRST">
+      <input id="Input_1" label="Credit score">
+        <inputExpression id="InputExpression_1" typeRef="number">
+          <text>creditScore</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1895pno" label="Requested limit">
+        <inputExpression id="LiteralExpression_1i86rrz" typeRef="number">
+          <text>requestedLimit</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Card tier" name="cardTier" typeRef="string" />
+      <rule id="DecisionRule_1e354yf">
+        <inputEntry id="UnaryTests_0nzgmo2">
+          <text>&gt;= 800</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_191rpfr">
+          <text>&gt;=15000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_18rsefk">
+          <text>"PLATINUM"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_063d4ft">
+        <inputEntry id="UnaryTests_12l6rhi">
+          <text>&gt;= 800</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1omjfpv">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ais2rb">
+          <text>"GOLD"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_064sx6i">
+        <inputEntry id="UnaryTests_0pn5qtb">
+          <text>[750..800)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0h4cj43">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_036yi8a">
+          <text>"GOLD"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nhjr2p">
+        <inputEntry id="UnaryTests_11xf14a">
+          <text>[700..750)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n8fccw">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1uaib9e">
+          <text>"SILVER"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1xkx2j1">
+        <inputEntry id="UnaryTests_16oe531">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vl28b3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0m7gmfm">
+          <text>"BRONZE"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="Decision_11l08rs_di" dmnElementRef="card-tier">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

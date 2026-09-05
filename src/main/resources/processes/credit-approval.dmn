@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/"
+             xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/"
+             xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/"
+             xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/"
+             xmlns:camunda="http://camunda.org/schema/1.0/dmn"
+             id="Definitions_CreditApproval"
+             name="Credit Approval"
+             namespace="http://camunda.org/schema/1.0/dmn"
+             exporter="Camunda Modeler"
+             exporterVersion="5.0.0">
+
+  <decision id="credit-approval" name="Credit Approval Decision">
+    <decisionTable id="DecisionTable_CreditApproval" hitPolicy="UNIQUE">
+
+      <input id="Input_CreditScore" label="Credit Score">
+        <inputExpression id="InputExpression_CreditScore" typeRef="number">
+          <text>creditScore</text>
+        </inputExpression>
+      </input>
+
+      <input id="Input_RequestedLimit" label="Requested Limit">
+        <inputExpression id="InputExpression_RequestedLimit" typeRef="number">
+          <text>requestedLimit</text>
+        </inputExpression>
+      </input>
+
+      <output id="Output_Approved" label="Approved" name="approved" typeRef="boolean"/>
+      <output id="Output_Reason" label="Reason" name="reason" typeRef="string"/>
+
+      <rule id="Rule_AutoApproved">
+        <inputEntry id="InputEntry_Rule1_Score">
+          <text>&gt;= 750</text>
+        </inputEntry>
+        <inputEntry id="InputEntry_Rule1_Limit">
+          <text>&lt;= 10000</text>
+        </inputEntry>
+        <outputEntry id="OutputEntry_Rule1_Approved">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_Rule1_Reason">
+          <text>"AUTO_APPROVED"</text>
+        </outputEntry>
+      </rule>
+
+      <rule id="Rule_LimitTooHigh">
+        <inputEntry id="InputEntry_Rule2_Score">
+          <text>&gt;= 700</text>
+        </inputEntry>
+        <inputEntry id="InputEntry_Rule2_Limit">
+          <text>&gt; 10000</text>
+        </inputEntry>
+        <outputEntry id="OutputEntry_Rule2_Approved">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_Rule2_Reason">
+          <text>"LIMIT_TOO_HIGH_FOR_SCORE"</text>
+        </outputEntry>
+      </rule>
+
+      <rule id="Rule_ManualReview">
+        <inputEntry id="InputEntry_Rule3_Score">
+          <text>[500..700)</text>
+        </inputEntry>
+        <inputEntry id="InputEntry_Rule3_Limit">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="OutputEntry_Rule3_Approved">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_Rule3_Reason">
+          <text>"MANUAL_REVIEW_REQUIRED"</text>
+        </outputEntry>
+      </rule>
+
+      <rule id="Rule_RejectedLowScore">
+        <inputEntry id="InputEntry_Rule4_Score">
+          <text>&lt; 500</text>
+        </inputEntry>
+        <inputEntry id="InputEntry_Rule4_Limit">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="OutputEntry_Rule4_Approved">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="OutputEntry_Rule4_Reason">
+          <text>"REJECTED_LOW_SCORE"</text>
+        </outputEntry>
+      </rule>
+
+    </decisionTable>
+  </decision>
+
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DMNDiagram_CreditApproval">
+      <dmndi:DMNShape id="DMNShape_CreditApproval" dmnElementRef="credit-approval">
+        <dc:Bounds height="80" width="180" x="160" y="100"/>
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+
+</definitions>
